@@ -5,15 +5,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedNativeQuery;
-import javax.persistence.NamedQuery;
 
 @NamedNativeQuery(
-  name  = "Person.findByNameAgeIndexed",
-  query = "SELECT * FROM Person WHERE name = ?1 AND age = ?2"
+  name        = "Person.insertPerson",
+  query       = "INSERT INTO PERSON (name, age) VALUES (?1, ?2)",
+  resultClass = Person.class
 )
 @NamedNativeQuery(
-  name  = "Person.findByNameAgeNamed",
-  query = "SELECT * FROM Person WHERE name = :name AND age = :age"
+  name        = "Person.selectPersonByNameAge",
+  query       = "SELECT * FROM Person WHERE name = :name AND age = :age",
+  resultClass = Person.class
+)
+@NamedNativeQuery(
+  name        = "Person.updatePerson",
+  query       = "UPDATE PERSON SET AGE = :newAge WHERE NAME = :name",
+  resultClass = Person.class
+)
+@NamedNativeQuery(
+  name        = "Person.deletePerson",
+  query       = "DELETE FROM PERSON WHERE NAME = :name",
+  resultClass = Person.class
 )
 @Entity
 public class Person {
@@ -24,12 +35,5 @@ public class Person {
   public Integer id;
   public String  name;
   public Integer age;
-
-  //CONSTRUCTORS
-  public Person() { }                               //Forced by @Entity
-  public Person(String name, Integer age) {         //To simplify PersonLoader
-    this.name = name;
-    this.age  = age;
-  }
 
 }

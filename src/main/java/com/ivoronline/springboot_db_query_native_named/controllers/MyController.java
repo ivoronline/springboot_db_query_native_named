@@ -1,53 +1,51 @@
 package com.ivoronline.springboot_db_query_native_named.controllers;
 
+import com.ivoronline.springboot_db_query_native_named.entities.Person;
+import com.ivoronline.springboot_db_query_native_named.services.DBAccess;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 @RestController
 public class MyController {
 
-  @PersistenceContext EntityManager entityManager;
+  @Autowired DBAccess dbAccess;
 
   //================================================================
-  // RETURN PERSON INDEXED
+  // INSERT PERSON
   //================================================================
-  @RequestMapping("ReturnPersonIndexed")
-  Object returnPersonIndexed() {
-
-    //REFERENCE QUERY USING ENTITY MANAGER
-    Query  query  = entityManager.createNamedQuery("Person.findByNameAgeIndexed");
-           query.setParameter(1, "John");
-           query.setParameter(2, 20);
-
-    //GET PERSON
-    Object object = query.getSingleResult();
-
-    //RETURN PERSON
-    return object;
+  @RequestMapping("InsertPerson")
+  String insertPerson() {
+    Integer insertedRecords = dbAccess.insertPerson();
+    return  insertedRecords + " Records Inserted";
 
   }
 
   //================================================================
-  // RETURN PERSON NAMED
+  // SELECT PERSON BY NAME AGE
   //================================================================
-  @RequestMapping("ReturnPersonNamed")
-  Object returnPersonNamed() {
+  @RequestMapping("SelectPersonByNameAge")
+  Person selectPersonByNameAge() {
+    Person person = dbAccess.selectPersonByNameAge();
+    return person;
+  }
 
-    //REFERENCE QUERY USING ENTITY MANAGER
-    Query  query  = entityManager.createNamedQuery("Person.findByNameAgeNamed");
-           query.setParameter("name", "John");
-           query.setParameter("age" , 20);
+  //================================================================
+  // UPDATE PERSON
+  //================================================================
+  @RequestMapping("UpdatePerson")
+  String updatePerson() {
+    Integer updatedRecords = dbAccess.updatePerson();
+    return  updatedRecords + " Records Updated";
+  }
 
-    //GET PERSON
-    Object object = query.getSingleResult();
-
-    //RETURN PERSON
-    return object;
-
+  //================================================================
+  // DELETE PERSON
+  //================================================================
+  @RequestMapping("DeletePerson")
+  String deletePerson() {
+    Integer deletedRecords = dbAccess.deletePerson();
+    return  deletedRecords + " Records Deleted";
   }
 
 }
