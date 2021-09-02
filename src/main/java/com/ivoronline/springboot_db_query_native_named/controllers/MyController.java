@@ -1,6 +1,5 @@
 package com.ivoronline.springboot_db_query_native_named.controllers;
 
-import com.ivoronline.springboot_db_query_native_named.entities.Person;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
