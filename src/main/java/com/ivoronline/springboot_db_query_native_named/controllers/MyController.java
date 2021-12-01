@@ -12,22 +12,21 @@ public class MyController {
   @Autowired DBAccess dbAccess;
 
   //================================================================
+  // SELECT PERSON
+  //================================================================
+  @RequestMapping("SelectPerson")
+  Person selectPerson() {
+    Person person = dbAccess.selectPerson();
+    return person;
+  }
+
+  //================================================================
   // INSERT PERSON
   //================================================================
   @RequestMapping("InsertPerson")
   String insertPerson() {
     Integer insertedRecords = dbAccess.insertPerson();
     return  insertedRecords + " Records Inserted";
-
-  }
-
-  //================================================================
-  // SELECT PERSON BY NAME AGE
-  //================================================================
-  @RequestMapping("SelectPersonByNameAge")
-  Person selectPersonByNameAge() {
-    Person person = dbAccess.selectPersonByNameAge();
-    return person;
   }
 
   //================================================================

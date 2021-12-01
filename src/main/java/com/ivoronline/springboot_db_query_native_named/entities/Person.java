@@ -7,13 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.NamedNativeQuery;
 
 @NamedNativeQuery(
-  name        = "Person.insertPerson",
-  query       = "INSERT INTO PERSON (name, age) VALUES (?1, ?2)",
+  name        = "Person.selectPerson",
+  query       = "SELECT * FROM Person WHERE name = ?1 AND age = ?2",
   resultClass = Person.class
 )
 @NamedNativeQuery(
-  name        = "Person.selectPersonByNameAge",
-  query       = "SELECT * FROM Person WHERE name = :name AND age = :age",
+  name        = "Person.insertPerson",
+  query       = "INSERT INTO PERSON (name, age) VALUES (:name, :age)",
   resultClass = Person.class
 )
 @NamedNativeQuery(

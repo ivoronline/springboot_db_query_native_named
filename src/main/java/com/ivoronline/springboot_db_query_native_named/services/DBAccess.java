@@ -10,7 +10,26 @@ import javax.persistence.Query;
 @Service
 public class DBAccess {
 
+  //PROPERTIES
   @PersistenceContext EntityManager entityManager;
+
+  //================================================================
+  // SELECT PERSON
+  //================================================================
+  public Person selectPerson() {
+
+    //REFERENCE QUERY USING ENTITY MANAGER
+    Query query  = entityManager.createNamedQuery("Person.selectPerson");
+          query.setParameter(1, "John");
+          query.setParameter(2 , 20);
+
+    //GET PERSON
+    Person person = (Person) query.getSingleResult();
+
+    //RETURN
+    return person;
+
+  }
 
   //================================================================
   // INSERT PERSON
@@ -20,32 +39,14 @@ public class DBAccess {
 
     //REFERENCE QUERY USING ENTITY MANAGER
     Query query = entityManager.createNamedQuery("Person.insertPerson");
-          query.setParameter(1, "John");
-          query.setParameter(2 , 20);
+          query.setParameter("name", "John");
+          query.setParameter("age" , 20);
 
     //GET NUMBER OF INSERTED RECORDS
     Integer insertedRecords = query.executeUpdate();
 
     //RETURN
     return insertedRecords;
-
-  }
-
-  //================================================================
-  // SELECT PERSON BY NAME AGE
-  //================================================================
-  public Person selectPersonByNameAge() {
-
-    //REFERENCE QUERY USING ENTITY MANAGER
-    Query  query  = entityManager.createNamedQuery("Person.selectPersonByNameAge");
-           query.setParameter("name", "John");
-           query.setParameter("age" , 20);
-
-    //GET PERSON
-    Person person = (Person) query.getSingleResult();
-
-    //RETURN
-    return person;
 
   }
 
